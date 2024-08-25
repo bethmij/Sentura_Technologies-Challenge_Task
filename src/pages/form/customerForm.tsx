@@ -1,8 +1,17 @@
 import {CgFormatRight} from "react-icons/cg";
 import {Button} from "../../components/ui/button";
 import { ScrollArea } from "../../components/ui/scroll-area";
+import {getCustomer} from "../../pages/form/customerDetails.tsx";
+import {InputItem} from "../../components/shared/InputItem.tsx";
+
+import {useForm} from "react-hook-form";
+
 
 export const CustomerForm = () => {
+
+    let form = getCustomer();
+    const {register, handleSubmit, formState: {errors}, reset} = useForm()
+
     return (
         <>
             <div className="absolute top-0 left-1/2 flex gap-x-5 -ms-32 mt-4 opacity-80">
@@ -16,8 +25,20 @@ export const CustomerForm = () => {
                     <div className=" form w-full h-full absolute border-2 -z-50 rounded-3xl opacity-100 "></div>
                     <div className="w-11/12 h-3 ms-12 border-t-2 bg-background  -z-50 bermuda absolute "></div>
 
+                    {form.map((formData, index) => (
+                        <div key={index} className="flex justify-around mb-4 z-10">
+                            {formData.map(data => (
+                                <div key={data.id} className=" z-50 w-2/5">
+                                        <InputItem id={`question${index}`} inputType="textArea" title={data.title}
+                                                   required={true} register={register}
+                                                   error={errors[`question${index}`]}/>
 
+                                </div>
 
+                            ))}
+
+                        </div>
+                    ))}
 
                 </ScrollArea>
 
