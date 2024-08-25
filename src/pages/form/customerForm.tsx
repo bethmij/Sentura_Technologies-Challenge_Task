@@ -5,15 +5,11 @@ import {getCustomer} from "../../pages/form/customerDetails.tsx";
 import {InputItem} from "../../components/shared/InputItem.tsx";
 
 import {FieldValues, useForm} from "react-hook-form";
-import * as axios from "axios";
+import axios from "axios";
 
-const createUser = async () => {
+const createUser = async (data: FieldValues) => {
     try {
-        const response = await axios.post('https://{WEAVY_SERVER}/api/users', {
-            uid: 'bugs-bunny',
-            name: 'Bugs Bunny',
-            directory: 'acme'
-        }, {
+        const response = await axios.post('https://{WEAVY_SERVER}/api/users', {data}, {
             headers: {
                 'Authorization': `Bearer {API-KEY}`,
                 'Content-Type': 'application/json'
@@ -28,7 +24,7 @@ const createUser = async () => {
 const onSubmit = async (data: FieldValues) => {
     console.log(data);
     if(data) {
-      createUser();
+      createUser(data).then(()=>{});
     }
 }
 
