@@ -9,15 +9,15 @@ import axios from "axios";
 
 const createUser = async (data: FieldValues) => {
     try {
-        const response = await axios.post('https://{WEAVY_SERVER}/api/users', {data}, {
+        const response = await axios.post('https://32babf3c1e8445439e4e0dcbb4a3c870.weavy.io', {data}, {
             headers: {
-                'Authorization': `Bearer {API-KEY}`,
+                'Authorization': `Bearer wys_venqZ3RRX6yr8cKNhglLfxqp9x9hVY1Zfmnm`,
                 'Content-Type': 'application/json'
             }
         });
         console.log('User created:', response.data);
     } catch (error) {
-        console.error('Error creating user:', error.response ? error.response.data : error.message);
+        console.error('Error creating user:',error);
     }
 };
 
