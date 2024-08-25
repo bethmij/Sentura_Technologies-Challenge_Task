@@ -1,6 +1,3 @@
-const genderList = ["MALE", "FEMALE", "OTHER"]
-
-
 export let customer = {
     customerCode:"",
     customerName:"",
@@ -24,40 +21,26 @@ export function getCustomer() {
 
     return [
         [{
-            id: "customerCode",
-            title: "Customer Code",
+            id: "uid",
+            title: "User Id",
             type: "text",
             placeholder: "",
             description: "Auto generated",
             isEdit:true
         },
             {
-                id: "customerName",
-                title: "Customer Name",
+                id: "name",
+                title: "User Name",
                 type: "text",
                 placeholder: "Name",
                 description: "Full name required",
                 required: true,
         }],
-        [{
-            id: "gender",
-            title: "Customer Gender",
-            type: "select",
-            placeholder: "Gender",
-            description: "",
-            selectList: genderList,
-        },
-            {
-                id: "dob",
-                title: "Customer DOB",
-                type: "date",
-                placeholder: "Date",
-                description: "Date of birth",
-        }],
+
        [
             {
-                id: "contactNo",
-                title: "Contact number",
+                id: "phone_number",
+                title: "User number",
                 type: "number",
                 placeholder: "Contact",
                 description: "Mobile number",
@@ -65,7 +48,7 @@ export function getCustomer() {
             },
             {
                 id: "email",
-                title: "Customer Email",
+                title: "User Email",
                 type: "email",
                 placeholder: "Email",
                 description: "Email required",

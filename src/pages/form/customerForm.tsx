@@ -4,12 +4,38 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 import {getCustomer} from "../../pages/form/customerDetails.tsx";
 import {InputItem} from "../../components/shared/InputItem.tsx";
 
-import {useForm} from "react-hook-form";
+import {FieldValues, useForm} from "react-hook-form";
+import * as axios from "axios";
+
+const createUser = async () => {
+    try {
+        const response = await axios.post('https://{WEAVY_SERVER}/api/users', {
+            uid: 'bugs-bunny',
+            name: 'Bugs Bunny',
+            directory: 'acme'
+        }, {
+            headers: {
+                'Authorization': `Bearer {API-KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('User created:', response.data);
+    } catch (error) {
+        console.error('Error creating user:', error.response ? error.response.data : error.message);
+    }
+};
+
+const onSubmit = async (data: FieldValues) => {
+    console.log(data);
+    if(data) {
+      createUser();
+    }
+}
 
 
 export const CustomerForm = () => {
 
-    let form = getCustomer();
+    const form = getCustomer();
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
     return (
@@ -20,7 +46,7 @@ export const CustomerForm = () => {
             </div>
 
             <form className="w-4/5 h-4/5 ms-52 mt-32 flex-col rounded-full absolute "
-                  onSubmit={()=>console.log("hi")}>
+                  onSubmit={handleSubmit(onSubmit)}>
                 <ScrollArea className="h-full w-full rounded-3xl z-0 ">
                     <div className=" form w-full h-full absolute border-2 -z-50 rounded-3xl opacity-100 "></div>
                     <div className="w-11/12 h-3 ms-12 border-t-2 bg-background  -z-50 bermuda absolute "></div>
@@ -29,7 +55,7 @@ export const CustomerForm = () => {
                         <div key={index} className="flex justify-around mb-4 z-10">
                             {formData.map(data => (
                                 <div key={data.id} className=" z-50 w-2/5">
-                                        <InputItem id={`question${index}`} inputType="textArea" title={data.title}
+                                        <InputItem id={data.id} inputType="textArea" title={data.title}
                                                    required={true} register={register}
                                                    error={errors[`question${index}`]}/>
 
