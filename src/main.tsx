@@ -7,7 +7,7 @@ import {RouterProvider, createBrowserRouter} from "react-router-dom";
 
 const router = createBrowserRouter([
     {
-        path: "/customer",
+        path: "/",
         element: <CustomerForm />
     }
 ]);
