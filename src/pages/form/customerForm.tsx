@@ -7,32 +7,35 @@ import {InputItem} from "../../components/shared/InputItem.tsx";
 import {FieldValues, useForm} from "react-hook-form";
 import axios from "axios";
 
-const createUser = async (data: FieldValues) => {
-    try {
-        const response = await axios.post('https://32babf3c1e8445439e4e0dcbb4a3c870.weavy.io', {data}, {
-            headers: {
-                'Authorization': `Bearer wys_venqZ3RRX6yr8cKNhglLfxqp9x9hVY1Zfmnm`,
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log('User created:', response.data);
-    } catch (error) {
-        console.error('Error creating user:',error);
-    }
-};
-
-const onSubmit = async (data: FieldValues) => {
-    console.log(data);
-    if(data) {
-      createUser(data).then(()=>{});
-    }
-}
-
 
 export const CustomerForm = () => {
 
     const form = getCustomer();
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
+
+    const createUser = async (data: FieldValues) => {
+        try {
+            const response = await axios.post('https://32babf3c1e8445439e4e0dcbb4a3c870.weavy.io', {data}, {
+                headers: {
+                    'Authorization': `Bearer wys_venqZ3RRX6yr8cKNhglLfxqp9x9hVY1Zfmnm`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('User created:', response.data);
+            alert("User created successfully!");
+            reset();
+        } catch (error) {
+            console.error('Error creating user:',error);
+        }
+    };
+
+    const onSubmit = async (data: FieldValues) => {
+        console.log(data);
+        if(data) {
+            createUser(data).then(()=>{});
+        }
+    }
+
 
     return (
         <>
